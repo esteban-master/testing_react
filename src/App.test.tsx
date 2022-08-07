@@ -1,28 +1,35 @@
+import NiceModal from '@ebay/nice-modal-react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
 import App from './App'
 
-test('Show App Component', () => {
-  render(<App />)
+test('Button new register present in the document', async () => {
+  render(
+    <NiceModal.Provider>
+      <App />
+    </NiceModal.Provider>
+  )
 
-  expect(screen.getByText('Hello Vite + React!')).toBeInTheDocument()
+  const buttonNewMedicalRecord = screen.getByRole('button', {
+    name: /nuevo registro/i,
+  })
+
+  expect(buttonNewMedicalRecord).toBeInTheDocument()
 })
-
-test('Working Counter', async () => {
+test('Open new medical record', async () => {
   const user = userEvent.setup()
-  const { getByText } = render(<App />)
-  expect(getByText('Count is: 0')).toBeInTheDocument()
+  render(
+    <NiceModal.Provider>
+      <App />
+    </NiceModal.Provider>
+  )
 
-  const button = getByText(/Count is: \d/)
+  const buttonNewMedicalRecord = screen.getByRole('button', {
+    name: /nuevo registro/i,
+  })
 
-  await user.click(button)
-  expect(getByText('Count is: 1')).toBeInTheDocument()
-
-  await user.click(button)
-  expect(getByText('Count is: 2')).toBeInTheDocument()
-
-  await user.click(button)
-  expect(getByText('Count is: 3')).toBeInTheDocument()
+  await user.click(buttonNewMedicalRecord)
+  expect(screen.getByText('Nuevo registro médico')).toBeInTheDocument()
 })

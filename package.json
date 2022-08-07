@@ -32,6 +32,7 @@
     "react-hook-form": "^7.34.0"
   },
   "devDependencies": {
+    "@ebay/nice-modal-react": "^1.2.6",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",

@@ -4,7 +4,7 @@ import React from 'react'
 import './index.css'
 
 import './App.css'
-import type { MedicalRecordForm } from './components/newMedicalRecord';
+import type { MedicalRecordForm } from './components/newMedicalRecord'
 import NewMedicalRecord from './components/newMedicalRecord'
 
 NiceModal.register('newMedicalRecord', NewMedicalRecord)

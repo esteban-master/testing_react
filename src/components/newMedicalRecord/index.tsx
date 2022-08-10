@@ -13,6 +13,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { useForm, Controller } from 'react-hook-form'
+import { useMedicalCare } from '../../routes'
 const medicines = [
   { id: 1, label: 'Paracetamol' },
   { id: 2, label: 'Ibuprofeno' },
@@ -49,6 +50,9 @@ const NewMedicalRecord = NiceModal.create(
         },
       })
     const modal = useModal()
+    const medicines = useMedicalCare<'medicines'>((data) =>
+      data.medicines.sort((a, b) => a.name.localeCompare(b.name))
+    )
     function handleClose() {
       modal.remove()
     }
@@ -95,23 +99,28 @@ const NewMedicalRecord = NiceModal.create(
               />
             </LocalizationProvider>
 
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              options={medicines}
-              getOptionLabel={(option) => option.label}
-              defaultValue={[]}
-              filterSelectedOptions
-              onChange={(_, item) => setValue('medicinesSelected', item)}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Medicamentos"
-                  placeholder="Ibuprofeno"
-                />
-              )}
-            />
+            {medicines.isSuccess && !medicines.isLoading && (
+              <Autocomplete
+                multiple
+                id="tags-outlined"
+                options={medicines.data.map((item) => ({
+                  id: item.id,
+                  label: item.name,
+                }))}
+                getOptionLabel={(option) => option.label}
+                defaultValue={[]}
+                filterSelectedOptions
+                onChange={(_, item) => setValue('medicinesSelected', item)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Medicamentos"
+                    placeholder="Ibuprofeno"
+                  />
+                )}
+              />
+            )}
           </DialogContent>
           <DialogActions>
             <Button

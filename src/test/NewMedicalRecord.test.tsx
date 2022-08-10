@@ -1,32 +1,43 @@
 import NiceModal from '@ebay/nice-modal-react'
-// import { build, sequence, perBuild } from '@jackfranklin/test-data-bot'
-import { render, act, screen } from '@testing-library/react'
+import { act, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
 
-import NewMedicalRecord from '.'
+import { getMedicalRecord } from '../../mocks/handlers'
+import { server } from '../../mocks/server'
+import NewMedicalRecord from '../components/newMedicalRecord'
+import type { Medicine } from '../models'
 
-
+import { renderWrapper } from './utils'
 
 describe('Medical Record Form', () => {
   test('Type observations', async () => {
     const user = userEvent.setup()
 
-    // const { text } = buildLoginForm()
-
-    render(<NiceModal.Provider />)
+    const ui = renderWrapper()
     act(() => {
       NiceModal.show(NewMedicalRecord)
     })
-    await user.type(screen.getByLabelText('Observaciones'), 'Hola')
+    await user.type(ui.getByLabelText('Observaciones'), 'Hola')
 
-    expect(screen.getByLabelText('Observaciones')).toHaveValue('Hola')
+    expect(ui.getByLabelText('Observaciones')).toHaveValue('Hola')
   })
 
   test('Submit form with completed data', async () => {
     const submitMock = jest.fn()
     const user = userEvent.setup()
-    render(<NiceModal.Provider />)
+    const medicine: Medicine = {
+      createdAt: '2022-06-15T01:36:37.805Z',
+      dose: '2',
+      id: 1,
+      management: 'oral',
+      name: 'Paracetamol',
+      updatedAt: '2022-06-15T01:36:37.805Z',
+    }
+
+    server.use(getMedicalRecord({ medicines: [medicine] }))
+    renderWrapper()
 
     act(() => {
       NiceModal.show(NewMedicalRecord, {
@@ -38,7 +49,7 @@ describe('Medical Record Form', () => {
     const startDate = '08-07-2022'
     const endDate = '08-14-2022'
 
-    await user.click(screen.getByLabelText('Medicamentos'))
+    await user.click(await screen.findByLabelText('Medicamentos'))
     await user.click(screen.getByText('Paracetamol'))
 
     await user.click(screen.getByLabelText('Desde'))
@@ -54,7 +65,7 @@ describe('Medical Record Form', () => {
     expect(submitMock).toHaveBeenCalledTimes(1)
     expect(submitMock).toHaveBeenCalledWith({
       endDate: new Date(endDate),
-      medicinesSelected: [{ id: 1, label: 'Paracetamol' }],
+      medicinesSelected: [{ id: medicine.id, label: medicine.name }],
       observations: '',
       startDate: new Date(startDate),
     })

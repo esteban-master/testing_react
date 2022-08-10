@@ -1,18 +1,15 @@
-import NiceModal from '@ebay/nice-modal-react'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
-import App from './App'
+import App from '../App'
+
+import { renderWrapper } from './utils'
+
 
 test('Button new register present in the document', async () => {
-  render(
-    <NiceModal.Provider>
-      <App />
-    </NiceModal.Provider>
-  )
-
-  const buttonNewMedicalRecord = screen.getByRole('button', {
+  const ui = renderWrapper(<App />)
+  const buttonNewMedicalRecord = ui.getByRole('button', {
     name: /nuevo registro/i,
   })
 
@@ -20,13 +17,8 @@ test('Button new register present in the document', async () => {
 })
 test('Open new medical record', async () => {
   const user = userEvent.setup()
-  render(
-    <NiceModal.Provider>
-      <App />
-    </NiceModal.Provider>
-  )
-
-  const buttonNewMedicalRecord = screen.getByRole('button', {
+  const ui = renderWrapper(<App />)
+  const buttonNewMedicalRecord = ui.getByRole('button', {
     name: /nuevo registro/i,
   })
 

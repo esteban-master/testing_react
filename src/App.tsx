@@ -6,6 +6,7 @@ import './index.css'
 import './App.css'
 import type { MedicalRecordForm } from './components/newMedicalRecord'
 import NewMedicalRecord from './components/newMedicalRecord'
+import Routes from './routes'
 
 NiceModal.register('newMedicalRecord', NewMedicalRecord)
 
@@ -24,6 +25,7 @@ const App: React.FC = () => {
       >
         Nuevo registro
       </Button>
+      <Routes />
     </main>
   )
 }

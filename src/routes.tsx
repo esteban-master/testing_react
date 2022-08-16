@@ -5,14 +5,15 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 
 import type { Data } from './models'
 
-const fetchData = async (): Promise<Data> => {
+async function fetchData(): Promise<Data> {
   const res = await fetch('/medical_records')
-  return await res.json()
+  const data: Data = await res.json()
+  return data
 }
 
-type Select<T extends keyof Data> = (data: Data) => Data[T]
+type Select<T> = (data: Data) => T
 
-export function useMedicalCare<T extends keyof Data>(select?: Select<T>) {
+export function useMedicalRecord<T>(select?: Select<T>) {
   return useQuery(['medical_record'], fetchData, {
     select,
     staleTime: Infinity,

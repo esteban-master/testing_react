@@ -1,4 +1,3 @@
-import React from 'react'
 import NiceModal, { useModal } from '@ebay/nice-modal-react'
 import {
   Button,
@@ -12,12 +11,12 @@ import {
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { useMedicalCare } from '../../routes'
-const medicines = [
-  { id: 1, label: 'Paracetamol' },
-  { id: 2, label: 'Ibuprofeno' },
-]
+
+import type { Medicine } from '../../models'
+import { Data } from '../../models'
+import { useMedicalRecord } from '../../routes'
 
 export type MedicalRecordForm = {
   endDate: Date
@@ -50,9 +49,12 @@ const NewMedicalRecord = NiceModal.create(
         },
       })
     const modal = useModal()
-    const medicines = useMedicalCare<'medicines'>((data) =>
-      data.medicines.sort((a, b) => a.name.localeCompare(b.name))
-    )
+    const {
+      data: medicines,
+      isSuccess,
+      isLoading,
+    } = useMedicalRecord<Medicine[]>((data) => data.medicines)
+
     function handleClose() {
       modal.remove()
     }
@@ -99,11 +101,11 @@ const NewMedicalRecord = NiceModal.create(
               />
             </LocalizationProvider>
 
-            {medicines.isSuccess && !medicines.isLoading && (
+            {isSuccess && !isLoading && (
               <Autocomplete
                 multiple
                 id="tags-outlined"
-                options={medicines.data.map((item) => ({
+                options={medicines.map((item) => ({
                   id: item.id,
                   label: item.name,
                 }))}

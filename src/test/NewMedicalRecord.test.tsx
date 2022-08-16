@@ -1,5 +1,5 @@
 import NiceModal from '@ebay/nice-modal-react'
-import { act, screen } from '@testing-library/react'
+import { act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react'
@@ -16,7 +16,7 @@ test('Show select with all medicines', async () => {
   const medicines = generateMedicineList()
 
   server.use(getMedicalRecord({ medicines }))
-  const ui = renderWrapper()
+  const { screen } = renderWrapper()
   act(() => {
     NiceModal.show(NewMedicalRecord)
   })
@@ -24,7 +24,7 @@ test('Show select with all medicines', async () => {
   await user.click(await screen.findByLabelText('Medicamentos'))
 
   medicines.forEach((medicine) =>
-    expect(ui.getByText(medicine.name)).toBeInTheDocument()
+    expect(screen.getByText(medicine.name)).toBeInTheDocument()
   )
 })
 
@@ -33,8 +33,8 @@ test('Submit form with completed data', async () => {
   const user = userEvent.setup()
   const medicine = generateMedicine()
 
+  const { screen } = renderWrapper()
   server.use(getMedicalRecord({ medicines: [medicine] }))
-  renderWrapper()
 
   act(() => {
     NiceModal.show(NewMedicalRecord, {

@@ -1,12 +1,12 @@
 export interface Data {
-  patients: HealthProfessional[]
+  patients: Patient[]
   medicalCares: MedicalCare[]
   entities: Entity[]
-  professions: HealthProfessional[]
-  healthProfessionals: HealthProfessional[]
   medicines: Medicine[]
   medicalRecords: MedicalRecord[]
   medicineLines: MedicineLine[]
+  healthProfessionals: HealthProfessional[]
+  professions: Profession[]
 }
 
 export interface Entity {
@@ -24,12 +24,10 @@ export interface Entity {
   updatedAt: string
 }
 
-export interface HealthProfessional {
-  id: number
-  entityId?: number
+export interface Patient {
   createdAt: string
-  professionId?: number
-  name?: string
+  entityId: number
+  id: number
   updatedAt: string
 }
 
@@ -69,5 +67,20 @@ export interface Medicine {
   dose: string
   management: string
   createdAt: string
+  updatedAt: string
+}
+
+
+export interface HealthProfessional {
+  createdAt: string
+  entityId: number
+  id: number
+  professionId: number
+  updatedAt: string
+}
+export interface Profession {
+  createdAt: string
+  name: string
+  id: number
   updatedAt: string
 }

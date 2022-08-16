@@ -20,7 +20,10 @@ const App: React.FC = () => {
       <Button
         variant="contained"
         onClick={() =>
-          NiceModal.show('newMedicalRecord', { onSubmit: handleSubmit })
+          NiceModal.show('newMedicalRecord', {
+            defaultValues: { endDate: new Date(), startDate: new Date() },
+            onSubmit: handleSubmit,
+          })
         }
       >
         Nuevo registro

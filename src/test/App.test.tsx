@@ -1,4 +1,3 @@
-import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
@@ -6,10 +5,9 @@ import App from '../App'
 
 import { renderWrapper } from './utils'
 
-
 test('Button new register present in the document', async () => {
-  const ui = renderWrapper(<App />)
-  const buttonNewMedicalRecord = ui.getByRole('button', {
+  const { screen } = renderWrapper(<App />)
+  const buttonNewMedicalRecord = screen.getByRole('button', {
     name: /nuevo registro/i,
   })
 
@@ -17,8 +15,8 @@ test('Button new register present in the document', async () => {
 })
 test('Open new medical record', async () => {
   const user = userEvent.setup()
-  const ui = renderWrapper(<App />)
-  const buttonNewMedicalRecord = ui.getByRole('button', {
+  const { screen } = renderWrapper(<App />)
+  const buttonNewMedicalRecord = screen.getByRole('button', {
     name: /nuevo registro/i,
   })
 

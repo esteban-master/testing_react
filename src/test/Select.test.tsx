@@ -4,7 +4,7 @@ import React from 'react'
 
 import CustomSelect from '../components/select'
 
-describe.only('Select', () => {
+describe('Select', () => {
   test('Find select Age', () => {
     render(<CustomSelect />)
     const select = screen.getByLabelText('Age')

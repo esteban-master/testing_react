@@ -70,7 +70,6 @@ export interface Medicine {
   updatedAt: string
 }
 
-
 export interface HealthProfessional {
   createdAt: string
   entityId: number

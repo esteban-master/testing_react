@@ -15,7 +15,6 @@ import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
 import type { Medicine } from '../../models'
-import { Data } from '../../models'
 import { useMedicalRecord } from '../../routes'
 
 export type MedicalRecordForm = {

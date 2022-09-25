@@ -12,7 +12,7 @@ NiceModal.register('newMedicalRecord', NewMedicalRecord)
 
 const App: React.FC = () => {
   function handleSubmit(values: MedicalRecordForm) {
-    console.log('DATA', values)
+    return values
   }
 
   return (
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           })
         }
       >
-        Nuevo registro
+        Nuevo registro JAJAJA
       </Button>
       <Routes />
     </main>

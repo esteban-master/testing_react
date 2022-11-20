@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import type { BuildOptions } from 'fishery'
 import { Factory } from 'fishery'
 
-import type { Medicine } from '../../models'
+import type { Medicine } from '../../models/types'
 
 const medicineFactory = Factory.define<Medicine>(({ sequence }) => ({
   createdAt: faker.date.past().toISOString(),

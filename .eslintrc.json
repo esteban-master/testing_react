@@ -6,7 +6,8 @@
     "node": true
   },
   "extends": [
-    "plugin:jsx-a11y/recommended"
+    "plugin:jsx-a11y/recommended",
+    "plugin:cypress/recommended"
   ],
   "globals": {
     "JSX": "readonly"

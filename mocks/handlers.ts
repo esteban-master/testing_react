@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import type { Data } from '../src/models'
+import type { Data } from '../src/models/types'
 
 import data from './data'
 

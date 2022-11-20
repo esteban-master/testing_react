@@ -1,4 +1,4 @@
-import type { Data } from '../src/models'
+import type { Data } from '../src/models/types'
 
 const data: Data = {
   entities: [
@@ -193,6 +193,16 @@ const data: Data = {
       startDate: '2022-07-21T00:00:00.000Z',
       updatedAt: '2022-08-06T18:05:40.471Z',
     },
+    {
+      createdAt: '2022-08-06T18:05:40.471Z',
+      endDate: '2022-07-29T00:00:00.000Z',
+      healthProfessionalId: 69,
+      id: 18,
+      observations: 'Le duele todo jajajaj',
+      patientId: 34,
+      startDate: '2022-07-21T00:00:00.000Z',
+      updatedAt: '2022-08-06T18:05:40.471Z',
+    },
   ],
   medicineLines: [
     {
@@ -206,6 +216,13 @@ const data: Data = {
       createdAt: '2022-08-06T18:07:25.727Z',
       id: 22,
       medicalRecordId: 16,
+      medicineId: 2,
+      updatedAt: '2022-08-06T18:07:25.727Z',
+    },
+    {
+      createdAt: '2022-08-06T18:07:25.727Z',
+      id: 23,
+      medicalRecordId: 18,
       medicineId: 2,
       updatedAt: '2022-08-06T18:07:25.727Z',
     },

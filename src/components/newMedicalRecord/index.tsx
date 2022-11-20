@@ -14,7 +14,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 
-import type { Medicine } from '../../models'
 import { useMedicalRecord } from '../../routes'
 
 export type MedicalRecordForm = {
@@ -48,11 +47,7 @@ const NewMedicalRecord = NiceModal.create(
         },
       })
     const modal = useModal()
-    const {
-      data: medicines,
-      isSuccess,
-      isLoading,
-    } = useMedicalRecord<Medicine[]>((data) => data.medicines)
+    const { data, isSuccess, isLoading } = useMedicalRecord()
 
     function handleClose() {
       modal.remove()
@@ -104,7 +99,7 @@ const NewMedicalRecord = NiceModal.create(
               <Autocomplete
                 multiple
                 id="tags-outlined"
-                options={medicines.map((item) => ({
+                options={data.medicines.map((item) => ({
                   id: item.id,
                   label: item.name,
                 }))}
@@ -117,7 +112,7 @@ const NewMedicalRecord = NiceModal.create(
                   <TextField
                     {...params}
                     label="Medicamentos"
-                    placeholder="Ibuprofeno"
+                    placeholder="Seleccionar..."
                   />
                 )}
               />

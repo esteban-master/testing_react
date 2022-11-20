@@ -1,6 +1,6 @@
 import NiceModal from '@ebay/nice-modal-react'
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 
 import './App.css'
@@ -11,8 +11,18 @@ import Routes from './routes'
 NiceModal.register('newMedicalRecord', NewMedicalRecord)
 
 const App: React.FC = () => {
-  function handleSubmit(values: MedicalRecordForm) {
-    return values
+  const [values, setValues] = useState<null | { observations: string }>(null)
+  const [data, setData] = useState(null)
+  function handleSubmit(val: MedicalRecordForm) {
+    setValues(val)
+  }
+
+  
+
+  function getData() {
+    fetch('/medical_records')
+      .then((res) => res.json())
+      .then(setData)
   }
 
   return (
@@ -26,8 +36,15 @@ const App: React.FC = () => {
           })
         }
       >
-        Nuevo registro JAJAJA
+        Nuevo
       </Button>
+      {values && (
+        <div>
+          <h1>{values.observations}</h1>
+        </div>
+      )}
+      <Button onClick={() => getData()}>Get</Button>
+      { data && data.medicines.map(item =>  <p>{item.name}</p> ) }
       <Routes />
     </main>
   )

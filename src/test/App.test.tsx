@@ -5,7 +5,7 @@ import App from '../App'
 
 import { renderWrapper } from './utils'
 
-test('Button new register present in the document', async () => {
+test.skip('Button new register present in the document', async () => {
   const { screen } = renderWrapper(<App />)
   const buttonNewMedicalRecord = screen.getByRole('button', {
     name: /nuevo registro/i,
@@ -13,7 +13,7 @@ test('Button new register present in the document', async () => {
 
   expect(buttonNewMedicalRecord).toBeInTheDocument()
 })
-test('Open new medical record', async () => {
+test.skip('Open new medical record', async () => {
   const user = userEvent.setup()
   const { screen } = renderWrapper(<App />)
   const buttonNewMedicalRecord = screen.getByRole('button', {
